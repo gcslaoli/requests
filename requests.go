@@ -387,7 +387,7 @@ func (obj *Client) request(ctx context.Context, option *RequestOption) (response
 	}
 	if response.response.StatusCode == 101 {
 		response.webSocket, err = websocket.NewClientConn(response.rawConn.Conn(), response.response.Header, response.ForceCloseConn)
-	} else if response.response.Header.Get("Content-Type") == "text/event-stream" {
+	} else if strings.Contains(response.response.Header.Get("Content-Type"), "text/event-stream") {
 		response.sse = newSse(response.response.Body, response.ForceCloseConn)
 	} else if !response.disUnzip {
 		var unCompressionBody io.ReadCloser

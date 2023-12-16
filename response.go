@@ -90,6 +90,9 @@ func (obj *Sse) Recv() (Event, error) {
 			event.Comment = reResult.Group(1)
 			continue
 		}
+		if readStr != "" {
+			continue
+		}
 		return event, errors.New("content parse error:" + readStr)
 	}
 }
