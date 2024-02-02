@@ -91,6 +91,7 @@ func (obj *Sse) Recv() (Event, error) {
 			continue
 		}
 		if readStr != "" {
+			event.Data += readStr
 			continue
 		}
 		return event, errors.New("content parse error:" + readStr)
@@ -267,9 +268,9 @@ func (obj *Response) IsStream() bool {
 
 // read body
 func (obj *Response) ReadBody() (err error) {
-	if obj.IsStream() {
-		return errors.New("can not read stream")
-	}
+	// if obj.IsStream() {
+	// 	return errors.New("can not read stream")
+	// }
 	if obj.readBody {
 		return errors.New("already read body")
 	}
